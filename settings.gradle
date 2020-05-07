@@ -1,0 +1,2 @@
+rootProject.name='PollApp'
+include ':app'
