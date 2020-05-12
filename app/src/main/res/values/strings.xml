@@ -14,5 +14,9 @@
     <string name="about">About</string>
     <string name="title_android_question">Pregunta (%1$d/%2$d)</string>
     <string name="next_question">Next</string>
+    <string name="questions">Questions</string>
+    <string name="insert_your_question">Ingrese su pregunta</string>
+    <string name="save">Guardar</string>
+    <string name="share_text">Share</string>
 
 </resources>

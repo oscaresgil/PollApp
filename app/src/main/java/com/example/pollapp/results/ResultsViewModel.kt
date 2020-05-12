@@ -2,23 +2,39 @@ package com.example.pollapp.results
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.pollapp.data.Question
+import com.example.pollapp.database.PollDatabaseDao
+import com.example.pollapp.database.Question
+import java.lang.StringBuilder
 
-class ResultsViewModel(questions: MutableList<Question>) : ViewModel() {
-    private val _questionCount = MutableLiveData<Int>()
-    val questionCount: LiveData<Int>
-        get() = _questionCount
+class ResultsViewModel(val database: PollDatabaseDao) : ViewModel() {
 
+    private val questions = database.getQuestions()
 
-    private val _resultsText = MutableLiveData<String>()
-    val resultsText: LiveData<String>
-        get() = _resultsText
+    val questionCount = Transformations.map(questions) { it.size }
 
-    init {
-        _questionCount.value = questions.size
-        for (question in questions) {
-            _resultsText.value += "${question.text} : ${question.answer}\n"
+    val resultsText = Transformations.map(questions) {
+        buildResultsText(it)
+    }
+
+    private val _restartRegister = MutableLiveData<Boolean>()
+    val restartRegister: LiveData<Boolean>
+        get() = _restartRegister
+
+    fun restart() {
+        _restartRegister.value = questionCount.value ?: 0 > 0
+    }
+
+    fun restartComplete() {
+        _restartRegister.value = false
+    }
+
+    private fun buildResultsText(questions: List<Question>) : String{
+        val resultsText = StringBuilder()
+        for (question in questions){
+            resultsText.append("Question ${question.questionId}: ${question.text} : ${question.answer}\n")
         }
+        return resultsText.toString()
     }
 }

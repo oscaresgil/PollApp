@@ -9,14 +9,14 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_questionFragment"
-            app:destination="@id/questionFragment"
+            app:destination="@id/pollFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/questionFragment"
-        android:name="com.example.pollapp.question.QuestionFragment"
-        android:label="QuestionFragment" >
+        android:id="@+id/pollFragment"
+        android:name="com.example.pollapp.poll.PollFragment"
+        android:label="PollFragment">
         <action
             android:id="@+id/action_questionFragment_to_resultsFragment"
             app:destination="@id/resultsFragment"
@@ -29,11 +29,24 @@
         android:label="ResultsFragment" >
         <action
             android:id="@+id/action_resultsFragment_to_questionFragment"
-            app:destination="@id/questionFragment"
+            app:destination="@id/pollFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.pollapp.home.AboutFragment"
         android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/addQuestionFragment"
+        android:name="com.example.pollapp.question.AddQuestionFragment"
+        android:label="AddQuestionFragment" />
+    <fragment
+        android:id="@+id/questionFragment"
+        android:name="com.example.pollapp.question.QuestionFragment"
+        android:label="QuestionFragment" >
+        <action
+            android:id="@+id/action_questionFragment_to_addQuestionFragment"
+            app:destination="@id/addQuestionFragment"
+            app:popUpTo="@id/questionFragment" />
+    </fragment>
 </navigation>

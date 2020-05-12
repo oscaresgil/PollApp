@@ -2,18 +2,18 @@ package com.example.pollapp.results
 
 import android.content.Context
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
 import com.example.pollapp.R
-import com.example.pollapp.data.QuestionUser
+import com.example.pollapp.database.PollDatabase
 import com.example.pollapp.databinding.ResultsFragmentBinding
+import com.example.pollapp.home.HomeFragmentDirections
 
 class ResultsFragment : Fragment() {
 
@@ -25,8 +25,6 @@ class ResultsFragment : Fragment() {
     private lateinit var viewModel: ResultsViewModel
 
     private lateinit var binding: ResultsFragmentBinding
-
-    private lateinit var questionUser: QuestionUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,31 +41,41 @@ class ResultsFragment : Fragment() {
             Toast.makeText(this.context, viewModel.resultsText.value, Toast.LENGTH_SHORT).show()
         }
 
-        binding.restartButton.setOnClickListener {
-            questionUser.initialize()
-            requireView().findNavController().navigate(ResultsFragmentDirections.actionResultsFragmentToQuestionFragment())
-        }
+        setHasOptionsMenu(true)
 
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModelFactory = ResultsViewModelFactory(questionUser.questions)
+
+        binding.lifecycleOwner = this
+
+        val application = requireNotNull(this.activity).application
+        val dataSource = PollDatabase.getInstance(application).pollDatabaseDao
+        viewModelFactory = ResultsViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ResultsViewModel::class.java)
 
         binding.viewModel = viewModel
 
-        binding.lifecycleOwner = this
+        viewModel.restartRegister.observe(viewLifecycleOwner, Observer { isRestarted ->
+            if (isRestarted) {
+                requireView().findNavController().navigate(ResultsFragmentDirections.actionResultsFragmentToQuestionFragment())
+                viewModel.restartComplete()
+            }
+        })
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        try {
-            questionUser = context as QuestionUser
-        } catch (castException: ClassCastException) {
-            /** The activity does not implement the listener.  */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.share_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.share_poll) {
+//            Share intent
         }
+        return super.onOptionsItemSelected(item)
     }
 
 }

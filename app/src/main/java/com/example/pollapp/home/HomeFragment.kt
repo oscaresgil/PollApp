@@ -9,9 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 
 import com.example.pollapp.R
+import com.example.pollapp.database.PollDatabase
 import com.example.pollapp.databinding.HomeFragmentBinding
 
 class HomeFragment : Fragment() {
@@ -20,6 +20,7 @@ class HomeFragment : Fragment() {
         fun newInstance() = HomeFragment()
     }
 
+    private lateinit var viewModelFactory: HomeViewModelFactory
     private lateinit var viewModel: HomeViewModel
 
     private lateinit var binding: HomeFragmentBinding
@@ -39,26 +40,33 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.finished()
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
 
+        val application = requireNotNull(this.activity).application
+        val dataSource = PollDatabase.getInstance(application).pollDatabaseDao
+        viewModelFactory = HomeViewModelFactory(dataSource)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
+
         binding.viewModel = viewModel
 
-        viewModel.stateInitialized.observe(viewLifecycleOwner, Observer { isStarted ->
+        viewModel.startRegister.observe(viewLifecycleOwner, Observer { isStarted ->
             if (isStarted) {
                 requireView().findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToQuestionFragment())
+                viewModel.startComplete()
             }
         })
+
+        viewModel.questionCount.observe(viewLifecycleOwner, Observer { count ->
+            if (count == 0) {
+                viewModel.startComplete()
+            }
+        })
+
     }
 
 }

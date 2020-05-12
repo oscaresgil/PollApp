@@ -3,22 +3,22 @@ package com.example.pollapp.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pollapp.database.PollDatabaseDao
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(val database: PollDatabaseDao) : ViewModel() {
 
-    private val _stateInitialized = MutableLiveData<Boolean>()
-    val stateInitialized: LiveData<Boolean>
-        get() = _stateInitialized
+    val questionCount = database.getQuestionCount()
 
-    init {
-        _stateInitialized.value = false
-    }
+    private val _startRegister = MutableLiveData<Boolean>()
+    val startRegister: LiveData<Boolean>
+        get() = _startRegister
 
     fun start() {
-        _stateInitialized.value = true
+        _startRegister.value = questionCount.value ?: 0 > 0
     }
 
-    fun finished() {
-        _stateInitialized.value = false
+    fun startComplete() {
+        _startRegister.value = false
     }
+
 }
