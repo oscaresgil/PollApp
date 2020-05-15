@@ -1,12 +1,12 @@
-package com.example.pollapp.add_question
+package com.example.pollapp.add_question_type
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pollapp.database.PollDatabaseDao
-import com.example.pollapp.database.Question
+import com.example.pollapp.database.QuestionType
 import kotlinx.coroutines.*
 
-class AddQuestionViewModel(val database: PollDatabaseDao) : ViewModel() {
+class AddQuestionTypeViewModel(val database: PollDatabaseDao) : ViewModel() {
 
     val text = MutableLiveData<String>()
 
@@ -14,7 +14,7 @@ class AddQuestionViewModel(val database: PollDatabaseDao) : ViewModel() {
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun insertQuestion() {
+    fun insertQuestionType() {
         uiScope.launch {
             insert()
         }
@@ -22,7 +22,7 @@ class AddQuestionViewModel(val database: PollDatabaseDao) : ViewModel() {
 
     private suspend fun insert(){
         withContext(Dispatchers.IO) {
-            database.insert(Question(text = text.value ?: ""))
+            database.insertType(QuestionType(text = text.value ?: ""))
         }
     }
 

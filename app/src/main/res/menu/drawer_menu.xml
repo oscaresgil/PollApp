@@ -8,6 +8,9 @@
         android:id="@+id/questionFragment"
         android:title="@string/questions" />
     <item
+        android:id="@+id/questionTypeFragment"
+        android:title="@string/question_type" />
+    <item
         android:id="@+id/aboutFragment"
         android:title="@string/about" />
 </menu>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -38,7 +39,7 @@
         android:label="AboutFragment" />
     <fragment
         android:id="@+id/addQuestionFragment"
-        android:name="com.example.pollapp.question.AddQuestionFragment"
+        android:name="com.example.pollapp.add_question.AddQuestionFragment"
         android:label="AddQuestionFragment" />
     <fragment
         android:id="@+id/questionFragment"
@@ -49,4 +50,16 @@
             app:destination="@id/addQuestionFragment"
             app:popUpTo="@id/questionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/questionTypeFragment"
+        android:name="com.example.pollapp.question_type.QuestionTypeFragment"
+        android:label="QuestionTypeFragment" >
+        <action
+            android:id="@+id/action_questionTypeFragment_to_addQuestionTypeFragment"
+            app:destination="@id/addQuestionTypeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addQuestionTypeFragment"
+        android:name="com.example.pollapp.add_question_type.AddQuestionTypeFragment"
+        android:label="AddQuestionTypeFragment" />
 </navigation>

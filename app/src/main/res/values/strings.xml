@@ -16,7 +16,9 @@
     <string name="next_question">Next</string>
     <string name="questions">Questions</string>
     <string name="insert_your_question">Ingrese su pregunta</string>
+    <string name="insert_your_question_type">Ingrese su tipo de pregunta</string>
     <string name="save">Guardar</string>
     <string name="share_text">Share</string>
+    <string name="question_type">Question Type</string>
 
 </resources>

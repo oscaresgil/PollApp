@@ -1,4 +1,4 @@
-package com.example.pollapp.add_question
+package com.example.pollapp.add_question_type
 
 import android.os.Bundle
 import android.view.*
@@ -8,18 +8,18 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.example.pollapp.R
 import com.example.pollapp.database.PollDatabase
-import com.example.pollapp.databinding.AddQuestionFragmentBinding
+import com.example.pollapp.databinding.AddQuestionTypeFragmentBinding
 
-class AddQuestionFragment : Fragment() {
+class AddQuestionTypeFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AddQuestionFragment()
+        fun newInstance() = AddQuestionTypeFragment()
     }
 
-    private lateinit var viewModelFactory: AddQuestionViewModelFactory
-    private lateinit var viewModel: AddQuestionViewModel
+    private lateinit var viewModelFactory: AddQuestionTypeViewModelFactory
+    private lateinit var viewModel: AddQuestionTypeViewModel
 
-    private lateinit var binding: AddQuestionFragmentBinding
+    private lateinit var binding: AddQuestionTypeFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +28,7 @@ class AddQuestionFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.add_question_fragment,
+            R.layout.add_question_type_fragment,
             container,
             false
         )
@@ -45,8 +45,8 @@ class AddQuestionFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = PollDatabase.getInstance(application).pollDatabaseDao
-        viewModelFactory = AddQuestionViewModelFactory(dataSource)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(AddQuestionViewModel::class.java)
+        viewModelFactory = AddQuestionTypeViewModelFactory(dataSource)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AddQuestionTypeViewModel::class.java)
 
         binding.viewModel = viewModel
 
@@ -59,7 +59,7 @@ class AddQuestionFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.save_button) {
-            viewModel.insertQuestion()
+            viewModel.insertQuestionType()
             activity?.onBackPressed()
         }
         return super.onOptionsItemSelected(item)

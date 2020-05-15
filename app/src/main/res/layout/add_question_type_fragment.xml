@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable type="com.example.pollapp.add_question.AddQuestionViewModel"
+        <variable type="com.example.pollapp.add_question_type.AddQuestionTypeViewModel"
             name="viewModel"/>
     </data>
 
@@ -18,7 +18,7 @@
             android:layout_marginStart="@dimen/scroll_margin"
             android:layout_marginEnd="@dimen/scroll_margin"
             android:ems="10"
-            android:hint="@string/insert_your_question_type"
+            android:hint="@string/insert_your_question"
             android:inputType="textPersonName"
             android:text="@={viewModel.text}"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -24,4 +24,21 @@ interface PollDatabaseDao {
     @Query("SELECT COUNT(*) FROM question_table")
     fun getQuestionCount(): LiveData<Int>
 
+    // Types
+
+    @Insert
+    fun insertType(questionType: QuestionType)
+
+    @Update
+    fun updateType(question: QuestionType)
+
+    @Query("SELECT * FROM question_type_table WHERE typeId = :key")
+    fun getQuestionType(key: Long): QuestionType?
+
+    @Query("SELECT * FROM question_type_table")
+    fun getQuestionTypes(): LiveData<List<QuestionType>>
+
+    @Query("SELECT COUNT(*) FROM question_type_table")
+    fun getQuestionTypeCount(): LiveData<Int>
+
 }

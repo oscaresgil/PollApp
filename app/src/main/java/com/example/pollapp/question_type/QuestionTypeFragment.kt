@@ -1,4 +1,4 @@
-package com.example.pollapp.question
+package com.example.pollapp.question_type
 
 import android.os.Bundle
 import android.view.*
@@ -9,18 +9,18 @@ import androidx.navigation.findNavController
 
 import com.example.pollapp.R
 import com.example.pollapp.database.PollDatabase
-import com.example.pollapp.databinding.QuestionFragmentBinding
+import com.example.pollapp.databinding.QuestionTypeFragmentBinding
 
-class QuestionFragment : Fragment() {
+class QuestionTypeFragment : Fragment() {
 
     companion object {
-        fun newInstance() = QuestionFragment()
+        fun newInstance() = QuestionTypeFragment()
     }
 
-    private lateinit var viewModelFactory: QuestionViewModelFactory
-    private lateinit var viewModel: QuestionViewModel
+    private lateinit var viewModelFactory: QuestionTypeViewModelFactory
+    private lateinit var viewModel: QuestionTypeViewModel
 
-    private lateinit var binding: QuestionFragmentBinding
+    private lateinit var binding: QuestionTypeFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,13 +29,13 @@ class QuestionFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.question_fragment,
+            R.layout.question_type_fragment,
             container,
             false
         )
 
         binding.fab.setOnClickListener {
-            requireView().findNavController().navigate(QuestionFragmentDirections.actionQuestionFragmentToAddQuestionFragment())
+            requireView().findNavController().navigate(QuestionTypeFragmentDirections.actionQuestionTypeFragmentToAddQuestionTypeFragment())
         }
 
         return binding.root
@@ -48,8 +48,8 @@ class QuestionFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = PollDatabase.getInstance(application).pollDatabaseDao
-        viewModelFactory = QuestionViewModelFactory(dataSource)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionViewModel::class.java)
+        viewModelFactory = QuestionTypeViewModelFactory(dataSource)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionTypeViewModel::class.java)
 
         binding.viewModel = viewModel
 

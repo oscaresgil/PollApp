@@ -4,14 +4,12 @@ import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "question_table")
-data class Question(
+@Entity(tableName = "question_type_table")
+data class QuestionType(
 
     @PrimaryKey(autoGenerate = true)
-    var questionId: Long = 0L,
+    var typeId: Long = 0L,
 
     @NonNull
-    val text: String,
-
-    var answer: String = ""
+    val text: String
 )
