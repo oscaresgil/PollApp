@@ -47,7 +47,7 @@ class QuestionFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val application = requireNotNull(this.activity).application
-        val dataSource = PollDatabase.getInstance(application).pollDatabaseDao
+        val dataSource = PollDatabase.getInstance(application).questionDatabaseDao
         viewModelFactory = QuestionViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionViewModel::class.java)
 

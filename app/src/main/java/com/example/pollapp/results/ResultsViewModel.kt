@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.pollapp.database.PollDatabaseDao
+import com.example.pollapp.database.QuestionDatabaseDao
 import com.example.pollapp.database.Question
 import java.lang.StringBuilder
 
-class ResultsViewModel(val database: PollDatabaseDao) : ViewModel() {
+class ResultsViewModel(val database: QuestionDatabaseDao) : ViewModel() {
 
     private val questions = database.getQuestions()
 

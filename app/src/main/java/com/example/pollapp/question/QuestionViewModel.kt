@@ -2,22 +2,25 @@ package com.example.pollapp.question
 
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.pollapp.database.PollDatabaseDao
-import com.example.pollapp.database.Question
+import com.example.pollapp.database.QuestionDatabaseDao
+import com.example.pollapp.database.QuestionWithType
 import java.lang.StringBuilder
 
-class QuestionViewModel(val database: PollDatabaseDao) : ViewModel() {
+class QuestionViewModel(val database: QuestionDatabaseDao) : ViewModel() {
 
-    private val questions = database.getQuestions()
+    private val questions = database.getQuestionsWithType()
 
     val questionsText = Transformations.map(questions) {
         buildQuestionsText(it)
     }
 
-    private fun buildQuestionsText(questions: List<Question>) : String{
+    private fun buildQuestionsText(questionsWithType: List<QuestionWithType>) : String{
         val questionsText = StringBuilder()
-        for (question in questions){
-            questionsText.append("Question: ${question.questionId}\nText: ${question.text}\nAnswer: ${question.answer}\n\n")
+        for (qwt in questionsWithType){
+            questionsText.append("Question: ${qwt.question.questionId}\n" +
+                    "Text: ${qwt.question.text}\n" +
+                    "Answer: ${qwt.question.answer}\n" +
+                    "Type: ${qwt.type}\n\n")
         }
         return questionsText.toString()
     }

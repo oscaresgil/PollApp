@@ -1,6 +1,5 @@
 package com.example.pollapp.results
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -13,7 +12,6 @@ import androidx.navigation.findNavController
 import com.example.pollapp.R
 import com.example.pollapp.database.PollDatabase
 import com.example.pollapp.databinding.ResultsFragmentBinding
-import com.example.pollapp.home.HomeFragmentDirections
 
 class ResultsFragment : Fragment() {
 
@@ -52,7 +50,7 @@ class ResultsFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val application = requireNotNull(this.activity).application
-        val dataSource = PollDatabase.getInstance(application).pollDatabaseDao
+        val dataSource = PollDatabase.getInstance(application).questionDatabaseDao
         viewModelFactory = ResultsViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ResultsViewModel::class.java)
 

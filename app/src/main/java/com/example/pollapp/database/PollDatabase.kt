@@ -34,7 +34,9 @@ abstract class PollDatabase : RoomDatabase() {
     /**
      * Connects the database to the DAO.
      */
-    abstract val pollDatabaseDao: PollDatabaseDao
+    abstract val questionDatabaseDao: QuestionDatabaseDao
+
+    abstract val questionTypeDatabaseDao: QuestionTypeDatabaseDao
 
     /**
      * Define a companion object, this allows us to add functions on the SleepDatabase class.

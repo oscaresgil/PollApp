@@ -3,9 +3,9 @@ package com.example.pollapp.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pollapp.database.PollDatabaseDao
+import com.example.pollapp.database.QuestionDatabaseDao
 
-class HomeViewModel(val database: PollDatabaseDao) : ViewModel() {
+class HomeViewModel(val database: QuestionDatabaseDao) : ViewModel() {
 
     val questionCount = database.getQuestionCount()
 

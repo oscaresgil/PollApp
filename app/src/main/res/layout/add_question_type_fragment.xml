@@ -12,15 +12,15 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/type_text"
+            android:id="@+id/question_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/scroll_margin"
             android:layout_marginEnd="@dimen/scroll_margin"
             android:ems="10"
-            android:hint="@string/insert_your_question"
+            android:hint="@string/insert_your_question_type"
             android:inputType="textPersonName"
-            android:text="@={viewModel.text}"
+            android:text="@={viewModel.type}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

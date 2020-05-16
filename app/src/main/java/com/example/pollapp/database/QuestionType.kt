@@ -1,6 +1,7 @@
 package com.example.pollapp.database
 
 import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,8 +9,13 @@ import androidx.room.PrimaryKey
 data class QuestionType(
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     var typeId: Long = 0L,
 
     @NonNull
-    val text: String
-)
+    val type: String
+) {
+    override fun toString(): String {
+        return type
+    }
+}

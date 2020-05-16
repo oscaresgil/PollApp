@@ -1,13 +1,14 @@
 package com.example.pollapp.poll
 
 import androidx.lifecycle.*
-import com.example.pollapp.database.PollDatabaseDao
+import com.example.pollapp.database.QuestionDatabaseDao
 import com.example.pollapp.database.Question
+import com.example.pollapp.database.QuestionWithType
 import kotlinx.coroutines.*
 
-class PollViewModel(val database: PollDatabaseDao) : ViewModel() {
+class PollViewModel(val database: QuestionDatabaseDao) : ViewModel() {
 
-    val questions = database.getQuestions()
+    val questions = database.getQuestionsWithType()
 
     private val _registerComplete = MutableLiveData<Boolean>()
     val registerComplete: LiveData<Boolean>
@@ -19,13 +20,13 @@ class PollViewModel(val database: PollDatabaseDao) : ViewModel() {
     var totalCount = 0
         private set
 
-    val currentQuestion = MutableLiveData<Question>()
+    val currentQuestion = MutableLiveData<QuestionWithType>()
 
     private val viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun initialize(questions: List<Question>) {
+    fun initialize(questions: List<QuestionWithType>) {
         totalCount = questions.size
         if (questions.isEmpty()) {
             _registerComplete.value = true
@@ -35,7 +36,7 @@ class PollViewModel(val database: PollDatabaseDao) : ViewModel() {
     }
 
     fun updateCurrentQuestion() {
-        val question = currentQuestion.value
+        val questionWithType = currentQuestion.value
         questionCount ++
         if (totalCount >= questionCount) {
             currentQuestion.value = questions.value?.get(questionCount - 1)
@@ -43,7 +44,12 @@ class PollViewModel(val database: PollDatabaseDao) : ViewModel() {
             _registerComplete.value = true
         }
         uiScope.launch {
-            update(question)
+            update(questionWithType?.let {
+                Question(questionId = it.question.questionId,
+                        text = it.question.text,
+                        answer = it.question.answer,
+                        type_id = it.question.type_id)
+            })
         }
     }
 
