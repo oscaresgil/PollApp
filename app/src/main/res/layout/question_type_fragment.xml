@@ -17,28 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ScrollView
-                android:id="@+id/scrollView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/scroll_margin"
-                android:layout_marginTop="@dimen/scroll_margin"
-                android:layout_marginEnd="@dimen/scroll_margin"
-                android:layout_marginBottom="@dimen/scroll_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
-
-                <TextView
-                    android:id="@+id/types_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.typesText}"
-                    android:textSize="@dimen/question_size" />
-            </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/roles_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

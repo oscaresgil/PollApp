@@ -57,9 +57,20 @@
         <action
             android:id="@+id/action_questionTypeFragment_to_addQuestionTypeFragment"
             app:destination="@id/addQuestionTypeFragment" />
+        <action
+            android:id="@+id/action_questionTypeFragment_to_questionTypeViewFragment"
+            app:destination="@id/questionTypeViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/addQuestionTypeFragment"
         android:name="com.example.pollapp.add_question_type.AddQuestionTypeFragment"
         android:label="AddQuestionTypeFragment" />
+    <fragment
+        android:id="@+id/questionTypeViewFragment"
+        android:name="com.example.pollapp.question_type_view.QuestionTypeViewFragment"
+        android:label="QuestionTypeViewFragment" >
+        <argument
+            android:name="typeId"
+            app:argType="long" />
+    </fragment>
 </navigation>

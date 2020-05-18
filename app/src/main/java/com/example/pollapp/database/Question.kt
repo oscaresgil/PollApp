@@ -1,11 +1,8 @@
 package com.example.pollapp.database
 
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.SET_DEFAULT
-import androidx.room.PrimaryKey
 
 @Entity(tableName = "question_table",
         foreignKeys = [
@@ -13,6 +10,9 @@ import androidx.room.PrimaryKey
             parentColumns = ["id"],
             childColumns = ["type_id"],
             onDelete = SET_DEFAULT)
+        ],
+        indices = [
+            Index(name = "typeId_index", value = ["type_id"])
         ])
 data class Question(
 

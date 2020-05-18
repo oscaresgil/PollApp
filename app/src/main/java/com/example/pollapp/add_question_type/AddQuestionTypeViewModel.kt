@@ -10,11 +10,14 @@ class AddQuestionTypeViewModel(val database: QuestionTypeDatabaseDao) : ViewMode
 
     val type = MutableLiveData<String>()
 
+    val iconIndex = MutableLiveData<Int>()
+
     private val viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun insertQuestionType() {
+    fun insertQuestionType(index: Int) {
+        iconIndex.value = index
         uiScope.launch {
             insert()
         }
@@ -22,7 +25,7 @@ class AddQuestionTypeViewModel(val database: QuestionTypeDatabaseDao) : ViewMode
 
     private suspend fun insert(){
         withContext(Dispatchers.IO) {
-            database.insert(QuestionType(type = type.value ?: ""))
+            database.insert(QuestionType(type = type.value ?: "", iconIndex = iconIndex.value ?: 0))
         }
     }
 

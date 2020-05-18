@@ -1,5 +1,7 @@
 package com.example.pollapp.question_type
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.pollapp.database.QuestionType
@@ -8,17 +10,17 @@ import java.lang.StringBuilder
 
 class QuestionTypeViewModel(val database: QuestionTypeDatabaseDao) : ViewModel() {
 
-    private val types = database.getQuestionTypes()
+    val types = database.getQuestionTypes()
 
-    val typesText = Transformations.map(types) {
-        buildQuestionsText(it)
+    private val _questionTypeClicked = MutableLiveData<Long>()
+    val questionTypeClicked: LiveData<Long>
+        get() = _questionTypeClicked
+
+    fun onQuestionTypeClicked(typeId: Long) {
+        _questionTypeClicked.value = typeId
     }
 
-    private fun buildQuestionsText(types: List<QuestionType>) : String{
-        val typesText = StringBuilder()
-        for (type in types){
-            typesText.append("QuestionType: ${type.typeId}\nText: ${type.type}\n\n")
-        }
-        return typesText.toString()
+    fun onQuestionTypeClickedCompleted(){
+        _questionTypeClicked.value = null
     }
 }

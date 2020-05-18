@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable type="com.example.pollapp.database.QuestionType"
+            name="questionType"/>
+        <variable type="com.example.pollapp.question_type.QuestionTypeClickListener"
+            name="clickListener"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/role_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(questionType)}">
+
+        <ImageView
+            android:id="@+id/role_icon"
+            android:layout_width="@dimen/role_icon_dimen"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:typeImage="@{questionType.iconIndex}" />
+
+        <TextView
+            android:id="@+id/role_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{questionType.type}"
+            android:textSize="@dimen/role_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/role_icon"
+            app:layout_constraintTop_toTopOf="@+id/role_icon" />
+
+        <TextView
+            android:id="@+id/desc_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{@string/icon_index_text(questionType.iconIndex)}"
+            android:textSize="@dimen/desc_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/role_icon"
+            app:layout_constraintTop_toBottomOf="@+id/role_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

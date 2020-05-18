@@ -6,4 +6,9 @@
     <dimen name="vertical_margin">16dp</dimen>
     <dimen name="horizontal_margin">8dp</dimen>
     <dimen name="scroll_margin">32dp</dimen>
+    <dimen name="role_icon_dimen">75dp</dimen>
+    <dimen name="role_text_size">24sp</dimen>
+    <dimen name="desc_text_size">16sp</dimen>
+    <dimen name="icon_size">75dp</dimen>
+    <dimen name="text_size_medium">48sp</dimen>
 </resources>

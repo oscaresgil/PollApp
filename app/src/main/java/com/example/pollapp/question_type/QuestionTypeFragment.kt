@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
@@ -52,6 +53,27 @@ class QuestionTypeFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionTypeViewModel::class.java)
 
         binding.viewModel = viewModel
+
+        viewModel.questionTypeClicked.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                requireView().findNavController().navigate(
+                    QuestionTypeFragmentDirections
+                        .actionQuestionTypeFragmentToQuestionTypeViewFragment(it))
+                viewModel.onQuestionTypeClickedCompleted()
+            }
+        })
+
+        val adapter = QuestionTypeAdapter(QuestionTypeClickListener {
+            viewModel.onQuestionTypeClicked(it)
+        })
+
+        binding.rolesList.adapter = adapter
+
+        viewModel.types.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
     }
 

@@ -13,7 +13,9 @@ data class QuestionType(
     var typeId: Long = 0L,
 
     @NonNull
-    val type: String
+    val type: String,
+
+    val iconIndex: Int
 ) {
     override fun toString(): String {
         return type
